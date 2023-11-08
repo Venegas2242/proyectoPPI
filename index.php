@@ -149,6 +149,7 @@ if (!$result) {
     
 </head>
 <body>
+    <h1>Hola</h1>
     <!-- Incluir el archivo de la barra de navegación -->
     <?php include 'php/navigation-bar.php'; ?>
 
