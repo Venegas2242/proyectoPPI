@@ -1,0 +1,117 @@
+/* Estilos para el menú desplegable personalizado */
+ul.dropdown-menu.custom-menu {
+    background-color: #d83d3d;
+    width: 200px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* Estilos para los elementos del menú personalizado */
+ul.dropdown-menu.custom-menu .dropdown-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+/* Estilos para los enlaces del menú personalizado */
+ul.dropdown-menu.custom-menu .dropdown-item a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+/* Estilos al pasar el ratón por encima de los enlaces del menú personalizado */
+ul.dropdown-menu.custom-menu .dropdown-item a:hover {
+    background-color: #337ab7;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Estilos para los elementos de la barra de navegación */
+.navbar .nav > li > a {
+    color: #fff;
+}
+
+/* Estilos al pasar el ratón por encima de los elementos de la barra de navegación */
+.navbar .nav > li > a:hover {
+    background-color: #0056b3;
+}
+
+/* Mostrar el menú desplegable al pasar el ratón por encima del elemento de la barra de navegación */
+.navbar .nav > li.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Estilos para el ícono del carrito de compras */
+.cart-icon {
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+/* Estilos para el ícono del carrito de compras */
+.cart-icon .fa-shopping-cart {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+/* Estilos para el contador del carrito de compras */
+.cart-icon .badge {
+    background-color: #ff0000;
+    color: #fff;
+    border: 1px solid red;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 5px 8px;
+}
+
+/* Aumentar el ancho de los menús desplegables */
+.dropdown-menu {
+    min-width: 200px;
+    padding: 10px;
+}
+
+/* Estilos para el menú desplegable */
+ul.dropdown-menu {
+    background-color: #fff;
+    width: 200px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+/* Estilos para los elementos del menú */
+ul.dropdown-menu .dropdown-item {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+}
+
+/* Estilos para los enlaces del menú */
+ul.dropdown-menu .dropdown-item a {
+    display: block;
+    padding: 8px 15px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+/* Estilos al pasar el ratón por encima de los enlaces */
+ul.dropdown-menu .dropdown-item a:hover {
+    background-color: #337ab7;
+    color: #fff;
+    transition: background-color 0.3s;
+}

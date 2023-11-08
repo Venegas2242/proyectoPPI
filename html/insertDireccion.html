@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Formulario de Dirección</title>
+    <style>
+        body {
+            background-color: #84ff9f;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mx-auto w-75 mt-5">
+        <h1 class="text-center mb-4">Registrar Dirección</h1>
+        <form action="../php/registrarDireccion.php" method="post">
+            <div class="form-group">
+                <label for="nombre_direccion">Nombre de la Dirección:</label>
+                <input type="text" class="form-control" name="nombre_direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="calle">Calle:</label>
+                <input type="text" class="form-control" name="calle" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="numero_exterior">Número Exterior:</label>
+                    <input type="number" class="form-control" name="numero_exterior" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="codigo_postal">Código Postal:</label>
+                    <input type="number" class="form-control" name="codigo_postal" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <input type="text" class="form-control" name="estado" required>
+            </div>
+            <div class="form-group">
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" class="form-control" name="ciudad" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Guardar Dirección</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
