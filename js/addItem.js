@@ -1,22 +1,22 @@
 const cartItems = [];
 
-function addToCart(productId, productName, productPrice, productImage) {
-    console.log(`Producto agregado: ID: ${productId}, Nombre: ${productName}, Precio: ${productPrice}`);
+function addToCartList(cantidad, productName, productPrice, productImage, productQuantity) {
+    console.log(`Producto agregado: Cantidad: ${cantidad}, Nombre: ${productName}, Precio: ${productPrice}, Cantidad: ${productQuantity}`);
 
     // Verifica si el producto ya está en el carrito
-    const existingProduct = cartItems.find(item => item.id === productId);
+    const existingProduct = cartItems.find(item => item.cantidad === cantidad);
 
     if (existingProduct) {
         // Si el producto ya está en el carrito, puedes decidir qué acción tomar, por ejemplo, aumentar la cantidad
         // En este ejemplo, solo se incrementa la cantidad
-        existingProduct.quantity += 1;
+        existingProduct.quantity += productQuantity;
     } else {
         // Si el producto no está en el carrito, agrégalo
-        cartItems.push({ id: productId, name: productName, price: productPrice, quantity: 1, image: productImage });
+        cartItems.push({ cantidad: cantidad, name: productName, price: productPrice, quantity: productQuantity, image: productImage });
     }
 
     updateCartCount();
-    updateCartDisplay(existingProduct.quantity);
+    updateCartDisplay();
 }
 
 // Actualiza el número de elementos en el carrito
@@ -29,9 +29,8 @@ function updateCartCount() {
     cartIcon.querySelector('.badge').innerText = cartItems.length;
 }
 
-
 // Función para actualizar la visualización del carrito
-function updateCartDisplay(existingProduct) {
+function updateCartDisplay() {
     const cartList = document.getElementById("cart-items");
     cartList.innerHTML = ''; // Limpiar la lista antes de actualizarla
 
@@ -43,10 +42,10 @@ function updateCartDisplay(existingProduct) {
                     <img src="${item.image}" alt="${item.name}">
                 </div>
                 <div class="cart-item-details">
-                    <strong> ID: </strong> ${item.id}<br>
+                    <strong> Cantidad: </strong> ${item.cantidad}<br>
                     <strong> Producto: </strong> ${item.name}<br>
-                    <strong> Precio: </strong>  ${item.price}
-                    <strong> Cantidad: </strong> ${existingProduct}
+                    <strong> Precio: </strong>  ${item.price}<br>
+                    <strong> Cantidad: </strong> ${item.quantity}
                 </div>
             </div>`;
         li.classList.add("cart-item"); // Agrega una clase al elemento li
