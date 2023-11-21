@@ -89,8 +89,16 @@ if (!$result) {
                         <input type="hidden" name="productName" value="<?php echo $productName; ?>">
                         <input type="hidden" name="productPrice" value="<?php echo $productPrice; ?>">
                         <input type="hidden" name="productImage" value="<?php echo $productImage; ?>">
+                        <input type="hidden" name="quantity" value="<?php echo $quantity; ?>">
+                        <input type="hidden" name="totalPrice" value="<?php echo $totalPrice; ?>">
 
-                        <button type="button" class="add-to-cart-button" onclick="addToCart(<?php echo $productId; ?>, <?php echo $quantity; ?>, <?php echo $totalPrice; ?>); addToCartList(<?php echo $quantity; ?>, '<?php echo $productName; ?>', <?php echo $productPrice; ?>, '<?php echo $productImage; ?>', <?php echo $totalPrice; ?>)">+ Agregar</button>
+                        <button type="button" class="add-to-cart-button" onclick="addToCartList(
+                            <?php echo $quantity; ?>,
+                            '<?php echo $productName; ?>',
+                            <?php echo $productPrice; ?>,
+                            '<?php echo $productImage; ?>',
+                            <?php echo $totalPrice; ?>
+                        )">+ Agregar</button>
                     </form>
                 </div>
             </div>
