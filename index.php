@@ -3,7 +3,7 @@ session_start();
 
 // Verificar si el usuario está autenticado
 $isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
-$usuario = $isLoggedIn ? $_SESSION['user'] : '';
+//$usuario = $isLoggedIn ? $_SESSION['user'] : '';
 
 // Conectar a la base de datos
 $con = mysqli_connect("127.0.0.1", "root", "root", "tiendaproyecto");
@@ -15,21 +15,23 @@ if (mysqli_connect_errno()) {
 }
 
 // Realizar una consulta para obtener los datos de los productos y del carrito
-$query = "
-    SELECT P.ID_Producto, P.Nombre, P.Precio,
-           (SELECT Nombre_foto FROM fotos WHERE ID_Producto = P.ID_Producto LIMIT 1) as foto,
-           COALESCE(COUNT(c.ID_Producto), 0) as cantidad,
-           COALESCE(SUM(p.Precio), 0) as totalPrecio
-    FROM productos P
-    LEFT JOIN carrito_compras c ON c.id_usuario = 1 AND c.id_producto = P.ID_Producto
-    GROUP BY P.ID_Producto
-";
-$result = mysqli_query($con, $query);
+if ($isLoggedIn) {
+    $usuario = $_SESSION["user"];
+    $id = $_SESSION["id"];
+    $query = "SELECT P.ID_Producto, P.Nombre, P.Precio, (SELECT Nombre_foto FROM fotos WHERE ID_Producto = P.ID_Producto LIMIT 1) as foto, COALESCE(COUNT(c.ID_Producto), 0) as cantidad, COALESCE(SUM(p.Precio), 0) as totalPrecio FROM productos P LEFT JOIN carrito_compras c ON c.id_usuario = $id AND c.id_producto = P.ID_Producto GROUP BY P.ID_Producto;";
+    $carrito = "SELECT ID_Producto FROM ( SELECT P.ID_Producto, COALESCE(COUNT(c.ID_Producto), 0) as cantidad FROM productos P LEFT JOIN carrito_compras c ON c.id_usuario = $id AND c.id_producto = P.ID_Producto GROUP BY P.ID_Producto HAVING cantidad > 0 ) AS subconsulta;";
+    $result = mysqli_query($con, $query);
+    $result2 = mysqli_query($con, $carrito);
 
-// Verificar si se obtuvieron resultados
-if (!$result) {
-    echo "No se pudieron obtener los datos de los productos.";
-    exit;
+    // Utiliza un bucle while para almacenar los resultados en un array
+    $productIds = array();
+    while ($row = mysqli_fetch_assoc($result2)) {
+        $productId = $row['ID_Producto'];
+        $productIds[] = $productId;
+    }
+
+    // Cerrar la conexión a la base de datos
+    mysqli_close($con);
 }
 ?>
 
@@ -51,12 +53,11 @@ if (!$result) {
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <link rel="stylesheet" href="estilos/barraNavegacion.css">
-    <link rel="stylesheet" href="estilos/galeria.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    
+    <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
+    <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
+
     
 </head>
 <body>
@@ -65,45 +66,56 @@ if (!$result) {
 
     <script src="js/addItem.js"></script>
 
+    <?php
+    // Imprime llamadas a fetchAndRefreshProductData para cada ID_Producto
+    if ($isLoggedIn) {
+        foreach ($productIds as $productId) {
+            echo "<script>fetchAndRefreshProductData($productId, '0');</script>";
+        }
+    } else {
+        echo "<h1>Inicia sesión</h1>";
+    }
+    ?>
+
     <div class="gallery">
         <?php
-        while ($row = mysqli_fetch_assoc($result)) {
-            $productId = $row["ID_Producto"];
-            $productName = $row["Nombre"];
-            $productPrice = $row["Precio"];
-            $productImage = '/pruebas/imagenes/' . $row["foto"];
-            $quantity = $row["cantidad"];
-            $totalPrice = $row["totalPrecio"];
+        if ($isLoggedIn) {
+            echo "Hola usuario $usuario con id $id";
+            while ($row = mysqli_fetch_assoc($result)) {
+                $productId = $row["ID_Producto"];
+                $productName = $row["Nombre"];
+                $productPrice = $row["Precio"];
+                $productImage = '/pruebas/imagenes/' . $row["foto"];
+                $quantity = $row["cantidad"];
+                $totalPrice = $row["totalPrecio"];
 
-            ?>
-        
-            <div class="gallery-item">
-                <img src="<?php echo $productImage; ?>" alt="<?php echo $productName; ?>">
-                <div class="product-details">
-                    <div class="product-price">$<?php echo $productPrice; ?></div>
-                    <div class="product-title"><?php echo $productName; ?></div>
+                ?>
+            
+                <div class="gallery-item">
+                    <img src="<?php echo $productImage; ?>" alt="<?php echo $productName; ?>">
+                    <div class="product-details">
+                        <div class="product-price">$<?php echo $productPrice; ?></div>
+                        <div class="product-title"><?php echo $productName; ?></div>
 
-                    <form id="addToCartForm_<?php echo $productId; ?>" action="php/addToCart.php" method="post">
-                        <!-- Campos ocultos para almacenar información del producto -->
-                        <input type="hidden" name="productId" value="<?php echo $productId; ?>">
-                        <input type="hidden" name="productName" value="<?php echo $productName; ?>">
-                        <input type="hidden" name="productPrice" value="<?php echo $productPrice; ?>">
-                        <input type="hidden" name="productImage" value="<?php echo $productImage; ?>">
-                        <input type="hidden" name="quantity" value="<?php echo $quantity; ?>">
-                        <input type="hidden" name="totalPrice" value="<?php echo $totalPrice; ?>">
+                        <form id="addToCartForm_<?php echo $productId; ?>" action="addToCart.php" method="post">
+                            <!-- Campos ocultos para almacenar información del producto -->
+                            <input type="hidden" name="productId" value="<?php echo $productId; ?>">
+                            <input type="hidden" name="productName" value="<?php echo $productName; ?>">
+                            <input type="hidden" name="productPrice" value="<?php echo $productPrice; ?>">
+                            <input type="hidden" name="productImage" value="<?php echo $productImage; ?>">
+                            <input type="hidden" name="quantity" value="<?php echo $quantity; ?>">
+                            <input type="hidden" name="totalPrice" value="<?php echo $totalPrice; ?>">
 
-                        <button type="button" class="add-to-cart-button" onclick="addToCartList(
-                            <?php echo $quantity; ?>,
-                            '<?php echo $productName; ?>',
-                            <?php echo $productPrice; ?>,
-                            '<?php echo $productImage; ?>',
-                            <?php echo $totalPrice; ?>
-                        )">+ Agregar</button>
-                    </form>
+                            <button type="button" class="add-to-cart-button" onclick="fetchAndRefreshProductData(<?php echo $productId; ?>, '1');">+ Agregar</button>
+
+                        </form>
+                    </div>
                 </div>
-            </div>
-        
-            <?php
+            
+                <?php
+            }
+        } else {
+            echo "<h1>Inicia sesión</h1>";
         }
         ?>
     </div>
@@ -114,8 +126,3 @@ if (!$result) {
 
 </body>
 </html>
-
-<?php
-// Cerrar la conexión a la base de datos
-mysqli_close($con);
-?>

@@ -1,3 +1,166 @@
+/* Estilos para la lista del carrito de compras */
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.cart-item-image img {
+    width: 80px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 80px;
+    object-fit: cover; /* Ajusta la imagen para que se ajuste dentro del contenedor manteniendo su relación de aspecto */
+    margin-right: 10px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+/* Estilos para la lista del carrito de compras */
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+}
+
+.cart-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.cart-item-image img {
+    width: 80px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 80px;
+    object-fit: cover; /* Ajusta la imagen para que se ajuste dentro del contenedor manteniendo su relación de aspecto */
+    margin-right: 10px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+/* Estilos para el icono del carrito en la barra de navegación */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-icon .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red; /* Color de fondo del contador del carrito */
+    color: white;
+    padding: 5px 8px;
+    border-radius: 50%;
+}
+
+/* Otros estilos adicionales según tus necesidades */
+
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-icon .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red; /* Color de fondo del contador del carrito */
+    color: white;
+    padding: 5px 8px;
+    border-radius: 50%;
+}
+
+/* Estilos para el contenedor del carrito de compras */
+#cart-items {
+    width: 350px; /* Ajusta el ancho según tus necesidades */
+    background-color: #fff; /* Color de fondo del carrito */
+    border: 1px solid #ddd; /* Borde del carrito */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para un aspecto elevado */
+    max-width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+
+    /* Personalización de la barra de desplazamiento */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ddd #f0f0f0; /* Firefox */
+
+    /* Webkit (Chrome, Safari) */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: #f0f0f0;
+        border-radius: 4px;
+    }
+
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Estilos de los elementos del carrito */
+.cart-item {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
+
+.cart-item-image img {
+    width: 80px; /* Ajusta el tamaño de la imagen según sea necesario */
+    height: 80px;
+    object-fit: cover; /* Ajusta la imagen para que se ajuste dentro del contenedor manteniendo su relación de aspecto */
+    margin-right: 10px;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+/* Estilos para el icono del carrito en la barra de navegación */
+.cart-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-icon .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red; /* Color de fondo del contador del carrito */
+    color: white;
+    padding: 5px 8px;
+    border-radius: 50%;
+}
+
+/* Estilos para el botón "Hola" dentro del menú desplegable */
+#boton1 {
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Relleno interno (arriba/abajo izquierda/derecha) */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño del texto */
+}
+
+#boton1:hover {
+    background-color: #45a049; /* Cambia el color de fondo al pasar el mouse */
+}
+
 /* Estilos para el menú desplegable personalizado */
 ul.dropdown-menu.custom-menu {
     background-color: #d83d3d;
