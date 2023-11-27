@@ -33,6 +33,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     $queryInsert = "INSERT INTO historial_compras (ID_Producto, ID_Usuario, Fecha_Compra) VALUES ($idProducto, $id, '$fecha_actual')";
     mysqli_query($con, $queryInsert);
+    
+    // Actualizar la cantidad de productos en el inventario
+    $queryUpdate = "UPDATE productos SET Cantidad_Almacen = Cantidad_Almacen - 1 WHERE ID_Producto = $idProducto";
+    mysqli_query($con, $queryUpdate);
 }
 
 $del = "DELETE FROM carrito_compras WHERE id_usuario = $id";
