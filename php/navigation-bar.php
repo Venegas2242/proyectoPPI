@@ -210,6 +210,9 @@ ul.dropdown-menu .dropdown-item a:hover {
                     </a>
                     <ul class="dropdown-menu">
                         <li class="dropdown-item">
+                            <a href="/pruebas/php/historialCompras.php">Pedidos Realizados</a>
+                        </li>
+                        <li class="dropdown-item">
                             <a href="/pruebas/php/metodosPago.php">Métodos de pago</a>
                         </li>
                         <li class="dropdown-item">
