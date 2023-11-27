@@ -192,7 +192,9 @@ ul.dropdown-menu .dropdown-item a:hover {
                     <li id="cart-items">
                         
                     </li>
-                    <li><button id="boton1">Hola</button></li>
+                    <form action="/pruebas/php/hacerCompra.php">
+                        <li><button id="boton1" >Comprar</button></li>
+                    </form>
                 </ul>
             </li>
 

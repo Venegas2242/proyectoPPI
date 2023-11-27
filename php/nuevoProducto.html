@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Producto</title>
+    <!-- Agregar enlaces a los estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #1692ff; /* Color de fondo azul claro */
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: #ffffff; /* Color de fondo blanco */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin-top: 8px;
+        }
+
+        button {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar producto nuevo</h1>
+
+        <form action="/pruebas/php/imprimir.php" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nombre">Nombre del producto:</label>
+                <input type="text" class="form-control" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea class="form-control" name="descripcion" rows="7" style="resize: both;" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" class="form-control" name="precio" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad">Cantidad en almacen:</label>
+                <input type="number" class="form-control" name="cantidad" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fabricante">Fabricante:</label>
+                <input type="text" class="form-control" name="fabricante">
+            </div>
+
+            <div class="form-group">
+                <label for="origen">Origen:</label>
+                <input type="text" class="form-control" name="origen">
+            </div>
+
+            <div class="form-group">
+                <label for="imagen">Imágenes:</label>
+                <input type="file" class="form-control" name="archivo[]" accept="image/*" multiple>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <!-- Agregar enlaces a los scripts de Bootstrap y jQuery (necesarios para algunos componentes de Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

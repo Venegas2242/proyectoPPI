@@ -72,14 +72,13 @@ if ($isLoggedIn) {
         foreach ($productIds as $productId) {
             echo "<script>fetchAndRefreshProductData($productId, '0');</script>";
         }
-    } else {
-        echo "<h1>Inicia sesión</h1>";
     }
     ?>
-
+    <?php
+    if ($isLoggedIn) {
+    ?>
     <div class="gallery">
-        <?php
-        if ($isLoggedIn) {
+     <?php   
             echo "Hola usuario $usuario con id $id";
             while ($row = mysqli_fetch_assoc($result)) {
                 $productId = $row["ID_Producto"];
@@ -111,15 +110,19 @@ if ($isLoggedIn) {
                         </form>
                     </div>
                 </div>
-            
-                <?php
+            <?php
             }
+            ?>
+    </div>
+    <div class="login-message">
+        <?php
         } else {
-            echo "<h1>Inicia sesión</h1>";
+        ?>
+    <h1>Para poder comprar, inicia sesión</h1>
+        <?php
         }
         ?>
     </div>
-
 
     </div>
 
