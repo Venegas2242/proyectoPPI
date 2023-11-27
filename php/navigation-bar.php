@@ -175,7 +175,11 @@ ul.dropdown-menu .dropdown-item a:hover {
                 <i class="fa fa-home"></i>
                 Home
             </a></li>
-            <li><a href="/pruebas/">Menu 1</a></li>
+            <?php
+            if ($id == 1) {
+                echo "<li><a href='/pruebas/html/nuevoProducto.html'>Agregar Producto</a></li>";
+            }
+            ?>
         </ul>
 
         <!-- Contenido a la derecha de la barra -->
