@@ -79,7 +79,7 @@ if ($isLoggedIn) {
     ?>
     <div class="gallery">
      <?php   
-            echo "Hola usuario $usuario con id $id";
+            //echo "Hola usuario $usuario con id $id";
             while ($row = mysqli_fetch_assoc($result)) {
                 $productId = $row["ID_Producto"];
                 $productName = $row["Nombre"];

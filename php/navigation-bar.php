@@ -176,7 +176,7 @@ ul.dropdown-menu .dropdown-item a:hover {
                 Home
             </a></li>
             <?php
-            if ($id == 1) {
+            if ($isLoggedIn && $id == 1) {
                 echo "<li><a href='/pruebas/html/nuevoProducto.html'>Agregar Producto</a></li>";
             }
             ?>
@@ -199,6 +199,7 @@ ul.dropdown-menu .dropdown-item a:hover {
                     <form action="/pruebas/php/hacerCompra.php">
                         <li><button id="boton1" >Comprar</button></li>
                     </form>
+                    <button onclick="emptyCart();">Vacíar carrito</button>
                 </ul>
             </li>
 

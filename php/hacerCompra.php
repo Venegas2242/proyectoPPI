@@ -10,6 +10,9 @@ if (mysqli_connect_errno()) {
     exit;
 }
 
+// Obtiene la fecha y hora actual en el formato 'YYYY-MM-DD HH:MI:SS'
+$fecha_actual = date('Y-m-d H:i:s');
+
 $id = $_SESSION["id"];
 
 // Realizar la consulta para obtener los datos de los productos y del carrito
@@ -28,7 +31,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     // Insertar en historial_compras
     $idProducto = $row['ID_Producto'];
 
-    $queryInsert = "INSERT INTO historial_compras (ID_Producto, ID_Usuario) VALUES ($idProducto, $id)";
+    $queryInsert = "INSERT INTO historial_compras (ID_Producto, ID_Usuario, Fecha_Compra) VALUES ($idProducto, $id, '$fecha_actual')";
     mysqli_query($con, $queryInsert);
 }
 
