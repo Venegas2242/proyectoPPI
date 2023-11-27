@@ -166,6 +166,24 @@ ul.dropdown-menu .dropdown-item a:hover {
     background-color: var(--secondary-color);
 }
 
+/* Estilo para el botón "Vaciar carrito" */
+#vaciar-carrito {
+    background-color: var(--danger-color);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 60%;
+    display: block;
+    margin: 10px auto;
+}
+
+/* Cambia el color al pasar el ratón por encima del botón "Vaciar carrito" */
+#vaciar-carrito:hover {
+    background-color: #d83d3d; /* Cambia el color al pasar el ratón */
+}
 </style>
 <nav class="navbar navbar-default navbar-expand">
     <div class="container">
@@ -178,6 +196,7 @@ ul.dropdown-menu .dropdown-item a:hover {
             <?php
             if ($isLoggedIn && $id == 1) {
                 echo "<li><a href='/pruebas/html/nuevoProducto.html'>Agregar Producto</a></li>";
+                echo "<li><a href='/pruebas/php/modificarProducto.php'>Modificar Producto</a></li>";
             }
             ?>
         </ul>
@@ -187,19 +206,23 @@ ul.dropdown-menu .dropdown-item a:hover {
             <!-- Carrito de compras -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <div class="cart-icon" id="cart-icon">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="badge" id="cart-item-count">0</span>
-                </div>
+                    <div class="cart-icon" id="cart-icon">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="badge" id="cart-item-count">0</span>
+                    </div>
                 </a>
                 <ul class="dropdown-menu">
                     <li id="cart-items">
-                        
+                        <!-- Contenido del carrito -->
                     </li>
                     <form action="/pruebas/php/hacerCompra.php">
-                        <li><button id="boton1" >Comprar</button></li>
+                        <li id="comprar-button" style="display: none;">
+                            <button id="boton1">Comprar</button>
+                        </li>
                     </form>
-                    <button onclick="emptyCart();">Vacíar carrito</button>
+                    <li id="vaciar-carrito-button" style="display: none;">
+                        <button id="vaciar-carrito" onclick="emptyCart();">Vaciar carrito</button>
+                    </li>
                 </ul>
             </li>
 
