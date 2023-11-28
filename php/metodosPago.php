@@ -4,6 +4,7 @@
     // Verificar si el usuario está autenticado
     $isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
     $usuario = $isLoggedIn ? $_SESSION['user'] : '';
+    $id = $_SESSION["id"];
 ?>
 
 <!DOCTYPE html>

@@ -1,9 +1,8 @@
 // Arreglo que almacenará los elementos del carrito de compras
 let cartItems = [];
 
-
 // Función para agregar un producto al carrito y ejecutar una solicitud PHP
-function addToCartListAndExecutePHP(productId) {
+function addToCartListAndExecutePHP(productId, cantidadReal) {
     // Realiza una solicitud AJAX para ejecutar addToCart.php
     fetch('/pruebas/php/addToCart.php', {
         method: 'POST',
@@ -31,7 +30,7 @@ function addToCartListAndExecutePHP(productId) {
                         cantidad = parseInt(cantidad, 10);
 
                         // Llama a la función de JavaScript para agregar el producto al carrito
-                        addToCartList((cantidad === 0) ? cantidad + 1 : cantidad, Nombre, Precio, "imagenes/" + foto, totalPrecio, ID_Producto);
+                        addToCartList((cantidad === 0) ? cantidad + 1 : cantidad, Nombre, Precio, "imagenes/" + foto, totalPrecio, ID_Producto, cantidadReal);
                     } else {
                         console.error('Error during getProductData.php execution:', data.message);
                     }
@@ -135,16 +134,54 @@ function emptyCart() {
 
 
 // Modifica la función fetchAndRefreshProductData para incluir cantidadReal
-function fetchAndRefreshProductData(productId, agregar, cantidadLocal, cantidadReal) {
+function fetchAndRefreshProductData(productId, agregar, cantidadReal) {
+    console.log(`Nuestra cantidad Real es: ${cantidadReal}`);
+    
     if (parseInt(agregar) === 1) {
         console.log(`ENTRAMOS A 1`);
+        console.log(`Nuestra cantidad Real sigue siendo: ${cantidadReal}`);
+        
         // Llama a la función para agregar el producto al carrito con los nuevos datos
         addToCartListAndExecutePHP(productId, cantidadReal);
-    } else if (parseInt(agregar) === 2) {
+    }  else if (parseInt(agregar) === 2) {
         deleteItemFromCartListAndExecutePHP(productId);
     } else if (parseInt(agregar) === 3) {
         deleteProductFromCartListAndExecutePHP(productId);
-    } else { // Este else es para cargar carrito al iniciar pagina
+    } else if (parseInt(agregar) ==4 ) {
+        console.log(`ENTRAMOS A 4`);
+        console.log(`Nuestra cantidad Real sigue siendo: ${cantidadReal}`);
+        
+        // Realiza una solicitud AJAX para obtener la cantidad en el carrito
+        fetch('/pruebas/php/getCartQuantity.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'productId': productId
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Obtener la cantidad en el carrito desde la respuesta
+                const cantidadEnCarrito = parseInt(data.cartQuantity, 10);
+
+                // Verificar si cantidadReal es menor que cantidad en el carrito
+                if (cantidadReal > cantidadEnCarrito) {
+                    // Llama a la función para agregar el producto al carrito con los nuevos datos
+                    addToCartListAndExecutePHP(productId, cantidadReal);
+                } else {
+                    console.log(`No se puede agregar más productos`);
+                }
+            } else {
+                console.error('Error during getCartQuantity.php execution:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error during getCartQuantity.php execution:', error);
+        });
+    }else { // Este else es para cargar carrito al iniciar pagina
         console.log(`ENTRAMOS A 0`);
         // Realiza una solicitud AJAX para obtener los nuevos datos del producto
         fetch('/pruebas/php/getProductData.php?productId=' + productId)
@@ -155,7 +192,8 @@ function fetchAndRefreshProductData(productId, agregar, cantidadLocal, cantidadR
                     let { ID_Producto, Nombre, Precio, foto, cantidad, totalPrecio } = data.productData;
 
                     // Llama a la función para agregar el producto al carrito con los nuevos datos
-                    addToCartList(cantidad, Nombre, Precio, "imagenes/" + foto, totalPrecio, ID_Producto, cantidadLocal, cantidadReal);
+                    console.log(`Cantidad: ${cantidad}, Nombre: ${Nombre}, Precio: ${Precio}, Ruta: ${foto}, Total: ${totalPrecio}, ID: ${ID_Producto}, cantidadReal: ${cantidadReal}`);
+                    addToCartList(cantidad, Nombre, Precio, "imagenes/" + foto, totalPrecio, ID_Producto, cantidadReal);
                 } else {
                     console.error('Error during getProductData.php execution:', data.message);
                 }
@@ -196,7 +234,6 @@ function updateCartCount() {
     cartIcon.querySelector('.badge').innerText = cartItems.length;
 }
 
-// Función para actualizar la visualización del carrito
 function updateCartDisplay() {
     const cartList = document.getElementById("cart-items");
     cartList.innerHTML = ''; // Limpia la lista antes de actualizarla
@@ -204,28 +241,35 @@ function updateCartDisplay() {
     cartItems.forEach(item => {
         // Crea un nuevo elemento li para cada producto en el carrito
         const li = document.createElement("li");
+
+        // Actualiza el precio total antes de agregar el elemento li al carrito
+        item.total = (item.quantity * item.price).toFixed(2);
+
         li.innerHTML = `
             <div class="cart-item">
-            <div class="cart-item-image">
-                <img src="${item.image}" alt="${item.name}">
-            </div>
-            <div class="cart-item-details">
-                <strong> Cantidad: </strong> 
-                <div class="quantity-buttons-container">
-                    ${item.quantity > 1 ? `<button class="quantity-button" onclick="decreaseQuantity('${item.productId}'); fetchAndRefreshProductData('${item.productId}', '2');">-</button>` : ''}
-                    ${item.quantity}
-                    ${item.quantity < item.cantidadReal ? `<button class="quantity-button" onclick="increaseQuantity('${item.productId}'); fetchAndRefreshProductData('${item.productId}', '1');">+</button>` : ''}
+                <div class="cart-item-image">
+                    <img src="${item.image}" alt="${item.name}">
                 </div>
-                <strong> Producto: </strong> ${item.name}<br>
-                <strong> Precio Unitario: </strong>  ${item.price}<br>
-                <strong> Precio: </strong>  ${item.total}<br>
-                <button class="remove-button" onclick="removeFromCart('${item.productId}'); fetchAndRefreshProductData('${item.productId}', '3');">Eliminar</button><br>
-            </div>
+                <div class="cart-item-details">
+                    <strong> Cantidad: </strong> 
+                    <div class="quantity-buttons-container">
+                        ${item.quantity > 1 ? `<button class="quantity-button" onclick="decreaseQuantity('${item.productId}'); fetchAndRefreshProductData('${item.productId}', '2');">-</button>` : ''}
+                        ${item.quantity}
+                        ${item.quantity < item.cantidadReal ? `<button class="quantity-button" onclick="increaseQuantity('${item.productId}'); fetchAndRefreshProductData('${item.productId}', '1');">+</button>` : ''}
+                    </div>
+                    <strong> Producto: </strong> ${item.name}<br>
+                    <strong> Precio Unitario: </strong>  ${item.price}<br>
+                    <strong> Precio: </strong>  ${item.total}<br>
+                    <button class="remove-button" onclick="removeFromCart('${item.productId}'); fetchAndRefreshProductData('${item.productId}', '3');">Eliminar</button><br>
+                </div>
             </div>`;
+        
         li.classList.add("cart-item"); // Agrega una clase al elemento li
         cartList.appendChild(li); // Agrega el elemento li a la lista
     });
 }
+
+
 
 // Función para disminuir la cantidad de un producto en el carrito
 function decreaseQuantity(productId) {
