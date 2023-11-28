@@ -89,7 +89,7 @@ if (!empty($productosSinCantidad)) {
     echo '<p class="mb-2">Los siguientes productos no pudieron ser comprados porque no hay suficiente cantidad en el almacén:</p>';
     echo '<ul class="list-unstyled">';
     foreach ($productosSinCantidad as $producto) {
-        echo "<li>Producto ID: $producto</li>";
+        echo "<li>Producto: $producto</li>";
     }
     echo '</ul>';
     echo '</div>';
