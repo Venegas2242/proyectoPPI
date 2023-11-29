@@ -77,7 +77,7 @@ echo '<title>Compra exitosa</title>';
 // Agregar enlaces a los estilos de Bootstrap
 echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">';
 // Agregar enlace a tu archivo CSS personalizado
-echo '<link rel="stylesheet" href="styles.css">';
+echo '<link rel="stylesheet" href="compraRealizada.css">';
 echo '</head>';
 echo '<body>';
 echo '<div class="container mt-5">';

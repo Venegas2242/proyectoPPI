@@ -30,64 +30,11 @@ $result = mysqli_query($con, "SELECT h.Fecha_Compra, p.nombre, p.descripcion, p.
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        a.back-link {
-            margin: 20px;
-            text-decoration: none;
-            color: #167cd6;
-            font-size: 20px;
-            display: inline-block;
-        }
-
-        .historial-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        .historial-block {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            border: 1px solid #ccc;
-            margin: 10px;
-            padding: 20px; /* Aumenta el espacio interno */
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .historial-block img {
-            max-width: 150px;
-            height: auto;
-            margin-right: 20px; /* Reduce el espacio a la derecha de la imagen */
-        }
-
-        .historial-block-info {
-            flex-grow: 1;
-        }
-
-        .historial-block p {
-            margin: 10px 0; /* Aumenta el espacio vertical entre párrafos */
-            color: #333;
-        }
-
-        .historial-block strong {
-            color: #007bff;
-        }
-    </style>
+    <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
+    <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
+    <link rel="stylesheet" href="/pruebas/estilos/carouselModa.css">
+    <link rel="stylesheet" href="/pruebas/estilos/carritoCompras.css">
+    <link rel="stylesheet" href="/pruebas/estilos/infoCompra.css">
 </head>
 <body>
     <?php include 'navigation-bar.php'; ?>

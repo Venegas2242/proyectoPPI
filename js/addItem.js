@@ -30,7 +30,7 @@ function addToCartListAndExecutePHP(productId, cantidadReal) {
                         cantidad = parseInt(cantidad, 10);
 
                         // Llama a la función de JavaScript para agregar el producto al carrito
-                        addToCartList((cantidad === 0) ? cantidad + 1 : cantidad, Nombre, Precio, "imagenes/" + foto, totalPrecio, ID_Producto, cantidadReal);
+                        addToCartList((cantidad === 0) ? cantidad + 1 : cantidad, Nombre, Precio, "/pruebas/imagenes/" + foto, totalPrecio, ID_Producto, cantidadReal);
                     } else {
                         console.error('Error during getProductData.php execution:', data.message);
                     }
@@ -193,7 +193,7 @@ function fetchAndRefreshProductData(productId, agregar, cantidadReal) {
 
                     // Llama a la función para agregar el producto al carrito con los nuevos datos
                     console.log(`Cantidad: ${cantidad}, Nombre: ${Nombre}, Precio: ${Precio}, Ruta: ${foto}, Total: ${totalPrecio}, ID: ${ID_Producto}, cantidadReal: ${cantidadReal}`);
-                    addToCartList(cantidad, Nombre, Precio, "imagenes/" + foto, totalPrecio, ID_Producto, cantidadReal);
+                    addToCartList(cantidad, Nombre, Precio, "/pruebas/imagenes/" + foto, totalPrecio, ID_Producto, cantidadReal);
                 } else {
                     console.error('Error during getProductData.php execution:', data.message);
                 }

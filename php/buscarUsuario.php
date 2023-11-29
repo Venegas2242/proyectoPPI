@@ -8,10 +8,10 @@ if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$nombre = mysqli_real_escape_string($con, $_POST['username']);
+$mail = mysqli_real_escape_string($con, $_POST['mail']);
 $contraseña = mysqli_real_escape_string($con, $_POST['password']);
 
-$result = mysqli_query($con, "SELECT * FROM usuarios WHERE Nombre_Usuario='$nombre' AND Contraseña='$contraseña';");
+$result = mysqli_query($con, "SELECT * FROM usuarios WHERE Correo_Electronico='$mail' AND Contraseña='$contraseña';");
 
 $response = array();
 

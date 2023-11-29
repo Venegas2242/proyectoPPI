@@ -1,8 +1,11 @@
 <?php
 session_start();
 $isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
-$usuario = $_SESSION["user"];
-$id = $_SESSION["id"];
+if ($isLoggedIn){
+    $usuario = $_SESSION["user"];
+    $id = $_SESSION["id"];
+}
+
 
 // Conectar a la base de datos
 $con = mysqli_connect("127.0.0.1", "root", "root", "tiendaproyecto");
@@ -53,64 +56,10 @@ if (!empty($idSeleccionado)) {
     <!-- Your custom styles -->
     <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
     <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
-    <style>
-
-        #modificaciones {
-            width: 70%;
-            margin: 0 auto;
-        }
-
-        form {
-            margin-top: 20px;
-        }
-
-        h2 {
-            margin-top: 20px;
-        }
-
-        button {
-            width: 100%;
-        }
-
-        .image-container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .image-item {
-            margin-right: 10px;
-            margin-bottom: 10px;
-            position: relative;
-        }
-
-        .image-item img {
-            max-width: 200px;
-            display: block;
-        }
-
-        .image-content {
-            position: relative;
-        }
-
-        .image-content img {
-            max-width: 200px;
-            display: block;
-        }
-
-        .delete-button {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: red;
-            color: white;
-            padding: 5px 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="/pruebas/estilos/carouselModa.css">
+    <link rel="stylesheet" href="/pruebas/estilos/carritoCompras.css">
+    <link rel="stylesheet" href="/pruebas/estilos/modificaciones.css">
+    
 </head>
 <body>
     <!-- Incluir el archivo de la barra de navegación -->
@@ -164,7 +113,7 @@ if (!empty($idSeleccionado)) {
             echo "<label for='origen'>Origen:</label>";
             echo "<input type='text' class='form-control' name='origen' value='{$productoSeleccionado['Origen']}'>";
             echo "</div>";
-            echo "<button type='submit' class='btn btn-primary'>Actualizar Producto</button>";
+            echo "<button type='submit' id='buttons' class='btn btn-primary'>Actualizar Producto</button>";
             echo "</form>";
 
             // Mostrar las imágenes asociadas al producto
@@ -191,7 +140,7 @@ if (!empty($idSeleccionado)) {
             echo '<div class="form-group">';
             echo '<input type="file" class="form-control" name="archivo[]" accept="image/*" multiple>';
             echo '</div>';
-            echo "<button type='submit' class='btn btn-primary'>Subir Imagen</button>";
+            echo "<button type='submit' id='buttons' class='btn btn-primary'>Subir Imagen</button>";
             echo "</form>";
         }
         ?>

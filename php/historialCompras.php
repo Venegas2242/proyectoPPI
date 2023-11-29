@@ -32,68 +32,10 @@ $result = mysqli_query($con, $query);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
-    <style>
-        /* Estilos para el historial de compras */
-        body {
-            background-color: #f2f2f2;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .historial-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin: 20px;
-        }
-
-        .historial-block {
-            width: 100%;
-            border: 1px solid #ccc;
-            margin: 10px;
-            padding: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .historial-block:hover {
-            background-color: #f0f0f0;
-        }
-
-        .historial-block p {
-            margin: 5px 0;
-        }
-
-        /* Estilo para el número de compra */
-        .historial-block .numero-compra {
-            font-weight: bold;
-            font-size: 1.2em;
-            color: #333; /* Color del texto */
-        }
-
-        /* Estilo para la fecha de compra */
-        .historial-block .fecha-compra {
-            font-size: 0.9em;
-            color: #555;
-        }
-
-        /* Estilo para el total */
-        .historial-block .total {
-            font-size: 1.1em;
-            color: #007bff; /* Color del texto */
-        }
-
-        /* Estilo para el botón */
-        .historial-block button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
+    <link rel="stylesheet" href="/pruebas/estilos/carouselModa.css">
+    <link rel="stylesheet" href="/pruebas/estilos/carritoCompras.css">
+    <link rel="stylesheet" href="/pruebas/estilos/historial.css">
 </head>
 <body>
     <?php include 'navigation-bar.php'; ?>

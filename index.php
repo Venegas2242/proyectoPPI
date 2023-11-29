@@ -19,34 +19,7 @@ if ($isLoggedIn) {
     $usuario = $_SESSION["user"];
     $id = $_SESSION["id"];
     $query = "SELECT P.ID_Producto, P.Nombre, P.Precio, (SELECT Nombre_foto FROM fotos WHERE ID_Producto = P.ID_Producto LIMIT 1) as foto, COALESCE(COUNT(c.ID_Producto), 0) as cantidad, COALESCE(SUM(p.Precio), 0) as totalPrecio, Cantidad_Almacen FROM productos P LEFT JOIN carrito_compras c ON c.id_usuario = $id AND c.id_producto = P.ID_Producto GROUP BY P.ID_Producto;";
-    $carrito = "SELECT P.ID_Producto, P.Cantidad_Almacen AS cantidadtotal, COALESCE(COUNT(c.ID_Producto), 0) as cantidad
-    FROM productos P
-    LEFT JOIN carrito_compras c ON c.id_producto = P.ID_Producto
-    WHERE c.id_usuario = $id
-    GROUP BY P.ID_Producto, P.Cantidad_Almacen
-    HAVING cantidad > 0;
-    ";
     $result = mysqli_query($con, $query);
-    $result2 = mysqli_query($con, $carrito);
-
-    // Utiliza un bucle while para almacenar los resultados en un array
-$productIds = array();
-$cantidadA = array();
-
-while ($row = mysqli_fetch_assoc($result2)) {
-    $productId = $row['ID_Producto'];
-    $productIds[] = $productId;
-
-    $cantidadAA = $row['cantidadtotal'];
-    $cantidadA[] = $cantidadAA;
-}
-
-// Ahora que tienes los datos, puedes usar un bucle foreach para imprimir los scripts
-
-
-
-    // Cerrar la conexión a la base de datos
-    mysqli_close($con);
 }
 ?>
 
@@ -72,30 +45,20 @@ while ($row = mysqli_fetch_assoc($result2)) {
 
     <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
     <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
-
-    
+    <link rel="stylesheet" href="/pruebas/estilos/carouselModa.css">
+    <link rel="stylesheet" href="/pruebas/estilos/carritoCompras.css">
 </head>
 <body>
     <!-- Incluir el archivo de la barra de navegación -->
     <?php include 'php/navigation-bar.php'; ?>
 
-    <script src="js/addItem.js"></script>
-
-    <?php
-    // Imprime llamadas a fetchAndRefreshProductData para cada ID_Producto
-    if ($isLoggedIn) {
-        foreach ($productIds as $index => $productId) {
-            $cantidadAlmacen = $cantidadA[$index];
-            echo "<script>fetchAndRefreshProductData($productId, '0', $cantidadAlmacen);</script>";
-        }
-    }
-    ?>
     <?php
     if ($isLoggedIn) {
     ?>
     <div class="gallery">
      <?php   
             //echo "Hola usuario $usuario con id $id";
+            $i = 0;
             while ($row = mysqli_fetch_assoc($result)) {
                 $productId = $row["ID_Producto"];
                 $productName = $row["Nombre"];
@@ -125,11 +88,23 @@ while ($row = mysqli_fetch_assoc($result2)) {
                             <button type="button" class="add-to-cart-button" <?php echo $almacen == 0 ? 'disabled' : ''; ?> onclick="fetchAndRefreshProductData(<?php echo $productId; ?>, 4, <?php echo $almacen; ?>)">
                                 <?php echo $almacen <= 0 ? 'Sin existencias' : '+ Agregar'; ?>
                             </button>
-
+                            <?php 
+                                if ($almacen > 0) {
+                            ?>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#productModal<?php echo $i; ?>">
+                                Ver Producto
+                            </button>
+                            <?php
+                                }
+                            ?>
                         </form>
                     </div>
                 </div>
+
+                <?php include 'php/infoProducto.php'; ?>   
+
             <?php
+                $i++;
             }
             ?>
     </div>
@@ -146,6 +121,9 @@ while ($row = mysqli_fetch_assoc($result2)) {
 
     </div>
 
-
+<?php
+// Cerrar la conexión a la base de datos
+mysqli_close($con);
+?>
 </body>
 </html>
