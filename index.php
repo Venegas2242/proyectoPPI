@@ -18,7 +18,7 @@ if (mysqli_connect_errno()) {
 if ($isLoggedIn) {
     $usuario = $_SESSION["user"];
     $id = $_SESSION["id"];
-    $query = "SELECT P.ID_Producto, P.Nombre, P.Precio, (SELECT Nombre_foto FROM fotos WHERE ID_Producto = P.ID_Producto LIMIT 1) as foto, COALESCE(COUNT(c.ID_Producto), 0) as cantidad, COALESCE(SUM(p.Precio), 0) as totalPrecio, Cantidad_Almacen FROM productos P LEFT JOIN carrito_compras c ON c.id_usuario = $id AND c.id_producto = P.ID_Producto GROUP BY P.ID_Producto;";
+    $query = "SELECT P.ID_Producto, P.Nombre, P.Precio, (SELECT Nombre_foto FROM fotos WHERE ID_Producto = P.ID_Producto LIMIT 1) as foto, COALESCE(COUNT(c.ID_Producto), 0) as cantidad, COALESCE(SUM(p.Precio), 0) as totalPrecio, Cantidad_Almacen FROM productos P LEFT JOIN carrito_compras c ON c.id_usuario = $id AND c.id_producto = P.ID_Producto WHERE p.Cantidad_Almacen >= 0 GROUP BY P.ID_Producto;";
     $result = mysqli_query($con, $query);
 }
 ?>
@@ -47,6 +47,7 @@ if ($isLoggedIn) {
     <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
     <link rel="stylesheet" href="/pruebas/estilos/carouselModa.css">
     <link rel="stylesheet" href="/pruebas/estilos/carritoCompras.css">
+    <link rel="stylesheet" href="/pruebas/estilos/footer.css">
 </head>
 <body>
     <!-- Incluir el archivo de la barra de navegación -->
@@ -86,7 +87,7 @@ if ($isLoggedIn) {
                             <input type="hidden" name="totalPrice" value="<?php echo $totalPrice; ?>">
                             <input type="hidden" name="almacen" value="<?php echo $almacen; ?>">
                             <button type="button" class="add-to-cart-button" <?php echo $almacen == 0 ? 'disabled' : ''; ?> onclick="fetchAndRefreshProductData(<?php echo $productId; ?>, 4, <?php echo $almacen; ?>)">
-                                <?php echo $almacen <= 0 ? 'Sin existencias' : '+ Agregar'; ?>
+                                <?php echo $almacen <= 0 ? 'Agotado' : '+ Agregar'; ?>
                             </button>
                             <?php 
                                 if ($almacen > 0) {
@@ -125,5 +126,7 @@ if ($isLoggedIn) {
 // Cerrar la conexión a la base de datos
 mysqli_close($con);
 ?>
+
+<?php include 'html/footer.html'; ?>
 </body>
 </html>

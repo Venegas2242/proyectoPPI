@@ -79,12 +79,6 @@ while ($row = mysqli_fetch_assoc($result2)) {
                             <a href="/pruebas/php/historialCompras.php">Pedidos Realizados</a>
                         </li>
                         <li class="dropdown-item">
-                            <a href="/pruebas/php/metodosPago.php">Métodos de pago</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="/pruebas/php/direcciones.php">Direcciones</a>
-                        </li>
-                        <li class="dropdown-item">
                             <a href="/pruebas/php/cerrarSesion.php">Cerrar sesión</a>
                         </li>
                     </ul>

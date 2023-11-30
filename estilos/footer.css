@@ -1,0 +1,26 @@
+footer {
+    background-color: #001f3f; /* Azul marino */
+    color: #ffffff;
+    padding: 20px 0;
+}
+.footer-columns {
+    display: flex;
+    justify-content: space-between; /* Distribuye las columnas uniformemente */
+    flex-wrap: wrap;
+}
+.footer-column {
+    flex: 1;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.social-icons a {
+    color: #ffffff;
+    margin-right: 10px;
+    font-size: 24px; /* Tamaño de la fuente ajustado (puedes cambiar el valor según tu preferencia) */
+}
+.footer-column h3 {
+    text-align: left; /* Alinea el h3 a la izquierda */
+}
+.footer-column p {
+    text-align: justify; /* Justifica el texto */
+}

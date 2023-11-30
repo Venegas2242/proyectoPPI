@@ -33,9 +33,9 @@ $result = mysqli_query($con, $query);
 
     <link rel="stylesheet" href="/pruebas/estilos/barraNavegacion.css">
     <link rel="stylesheet" href="/pruebas/estilos/galeria.css">
-    <link rel="stylesheet" href="/pruebas/estilos/carouselModa.css">
     <link rel="stylesheet" href="/pruebas/estilos/carritoCompras.css">
     <link rel="stylesheet" href="/pruebas/estilos/historial.css">
+    <link rel="stylesheet" href="/pruebas/estilos/footer.css">
 </head>
 <body>
     <?php include 'navigation-bar.php'; ?>
@@ -58,5 +58,6 @@ $result = mysqli_query($con, $query);
         ?>
     </div>
 
+    <?php include '../html/footer.html'; ?>
 </body>
 </html>

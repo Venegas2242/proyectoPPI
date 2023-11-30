@@ -20,7 +20,7 @@ if (mysqli_connect_errno()) {
 $idSeleccionado = isset($_POST['id_producto']) ? $_POST['id_producto'] : '';
 
 // Consultar todos los productos
-$query = "SELECT ID_Producto, Nombre FROM productos";
+$query = "SELECT ID_Producto, Nombre FROM productos WHERE Cantidad_Almacen >= 0";
 $result = mysqli_query($con, $query);
 
 // Consultar los detalles del producto seleccionado (si hay uno seleccionado)
@@ -104,6 +104,11 @@ if (!empty($idSeleccionado)) {
             echo "<div class='form-group'>";
             echo "<label for='cantidad'>Cantidad en Almacén:</label>";
             echo "<input type='text' class='form-control' name='cantidad' value='{$productoSeleccionado['Cantidad_Almacen']}'>";
+            echo "</div>";
+            echo "<div class='form-check'>";
+            echo "<input type='checkbox' class='form-check-input' name='eliminar_producto'>";
+            echo "<span style='margin-right: 5px;'> </span>"; // Espacio pequeño    
+            echo "<label class='form-check-label' for='eliminar_producto'>Eliminar Producto</label>";
             echo "</div>";
             echo "<div class='form-group'>";
             echo "<label for='fabricante'>Fabricante:</label>";

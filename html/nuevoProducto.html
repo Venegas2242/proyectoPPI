@@ -86,8 +86,8 @@
 
             <div class="form-group">
                 <label for="precio">Precio:</label>
-                <input type="number" class="form-control" name="precio" min="0" required>
-            </div>
+                <input type="text" class="form-control" name="precio" pattern="[0-9]+(\.[0-9]+)?" title="Ingrese un número decimal" required>
+            </div>            
 
             <div class="form-group">
                 <label for="cantidad">Cantidad en almacen:</label>
